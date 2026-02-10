@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PANDORICA</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Auth Screen -->
+  <div id="auth-screen" class="hidden">
+    <div class="welcome-container">
+      <h1>PANDORICA</h1>
+      <p>Cross-platform markdown notes with Google Drive sync</p>
+      <button id="sign-in-btn" class="primary-btn">Sign in with Google</button>
+      <div id="oauth-instructions" class="hidden">
+        <p>Opening Google sign-in in your browser...</p>
+        <p>After signing in, paste the authorization code here:</p>
+        <input type="text" id="oauth-code" placeholder="Paste code here">
+        <button id="complete-oauth-btn" class="primary-btn">Complete Sign-In</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="main-app" class="hidden">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <span class="app-title">PANDORICA</span>
+      </div>
+      <div class="header-center">
+        <span id="sync-indicator" class="sync-status synced">✓ Synced</span>
+      </div>
+      <div class="header-right">
+        <button id="settings-btn" class="icon-btn">⚙️</button>
+        <span id="user-email"></span>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <!-- Sidebar: Folders -->
+      <div class="sidebar">
+        <div class="folder-list" id="folder-list">
+          <div class="folder-item active" data-folder-id="all">
+            📌 All Notes
+          </div>
+          <div class="folder-divider"></div>
+        </div>
+        <button id="new-folder-btn" class="secondary-btn">+ New Folder</button>
+      </div>
+
+      <!-- Notes List -->
+      <div class="notes-panel">
+        <div class="notes-header">
+          <button id="new-note-btn" class="primary-btn">+ New Note</button>
+        </div>
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="🔍 Search notes...">
+        </div>
+        <div class="notes-list" id="notes-list">
+          <!-- Notes will be populated here -->
+        </div>
+      </div>
+
+      <!-- Editor/Preview -->
+      <div class="editor-panel">
+        <div class="editor-toolbar">
+          <button id="edit-mode-btn" class="toolbar-btn active">Edit</button>
+          <button id="preview-mode-btn" class="toolbar-btn">Preview</button>
+          <button id="split-mode-btn" class="toolbar-btn">Split</button>
+          <span id="save-indicator" class="save-status"></span>
+        </div>
+        <div class="editor-container">
+          <div id="editor-pane" class="editor-pane">
+            <textarea id="markdown-editor" placeholder="Start typing..."></textarea>
+          </div>
+          <div id="preview-pane" class="preview-pane hidden">
+            <div id="markdown-preview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div id="settings-panel" class="settings-panel hidden">
+    <div class="settings-content">
+      <h2>Settings <button id="close-settings-btn" class="close-btn">✕</button></h2>
+
+      <h3>Account</h3>
+      <p id="settings-email"></p>
+      <button id="sign-out-btn" class="secondary-btn">Sign Out</button>
+
+      <h3>Sync</h3>
+      <p>Last synced: <span id="last-sync-time">Never</span></p>
+      <button id="manual-sync-btn" class="secondary-btn">Sync Now</button>
+
+      <h3>Storage</h3>
+      <p><span id="note-count">0</span> notes</p>
+
+      <h3>About</h3>
+      <p>PANDORICA v1.0</p>
+      <p>Built with Swarm Kit</p>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

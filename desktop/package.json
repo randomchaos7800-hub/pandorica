@@ -1,0 +1,47 @@
+{
+  "name": "pandorica-desktop",
+  "version": "1.0.0",
+  "description": "Cross-platform markdown notes with Google Drive sync",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.pandorica.app",
+    "productName": "PANDORICA",
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "target": "dir",
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "dir"
+    },
+    "files": [
+      "src/**/*",
+      "public/**/*",
+      "package.json"
+    ]
+  },
+  "dependencies": {
+    "electron": "^28.0.0",
+    "electron-store": "^8.1.0",
+    "codemirror": "^6.0.1",
+    "@codemirror/lang-markdown": "^6.2.4",
+    "@codemirror/theme-one-dark": "^6.1.2",
+    "marked": "^11.1.1",
+    "highlight.js": "^11.9.0",
+    "googleapis": "^128.0.0",
+    "keytar": "^7.9.0",
+    "uuid": "^9.0.1",
+    "md5": "^2.3.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.9.1"
+  }
+}

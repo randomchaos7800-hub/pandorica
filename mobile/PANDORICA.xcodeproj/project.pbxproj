@@ -1,0 +1,14 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* PANDORICA Xcode Project Configuration */
+/* This is a simplified project file - open in Xcode to generate full structure */
+
+	};
+	rootObject = 0000000000000001 /* Project object */;
+}

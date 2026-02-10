@@ -1,0 +1,7 @@
+# Build logs (generated per-task, not source files)
+build-logs/*.md
+!build-logs/.gitkeep
+
+# Case law (accumulated over time, project-specific)
+case-law/*.md
+!case-law/.gitkeep
