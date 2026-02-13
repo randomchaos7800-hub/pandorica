@@ -5,3 +5,21 @@ build-logs/*.md
 # Case law (accumulated over time, project-specific)
 case-law/*.md
 !case-law/.gitkeep
+
+# Node modules
+desktop/node_modules/
+
+# Build output
+desktop/dist/
+desktop/build-output.log
+
+# Package lock (can be regenerated)
+desktop/package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

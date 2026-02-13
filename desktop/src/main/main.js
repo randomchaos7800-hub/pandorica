@@ -9,6 +9,22 @@ const store = new Store();
 let mainWindow;
 let syncEngine;
 
+async function initializeAuth() {
+  // Check if user is authenticated
+  const hasToken = await KeychainService.hasToken();
+  if (hasToken) {
+    const token = await KeychainService.retrieveToken();
+    const driveService = new GoogleDriveService(JSON.parse(token));
+    syncEngine = new SyncEngine(driveService, store);
+
+    // Start sync
+    syncEngine.start();
+    mainWindow.webContents.send('auth-status', { authenticated: true });
+  } else {
+    mainWindow.webContents.send('auth-status', { authenticated: false });
+  }
+}
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -25,27 +41,21 @@ function createWindow() {
 
   mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
 
+  // Open DevTools for debugging
+  mainWindow.webContents.openDevTools();
+
+  // Wait for page to load before sending auth status
+  mainWindow.webContents.on('did-finish-load', async () => {
+    await initializeAuth();
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
 }
 
-app.on('ready', async () => {
+app.on('ready', () => {
   createWindow();
-
-  // Check if user is authenticated
-  const hasToken = await KeychainService.hasToken();
-  if (hasToken) {
-    const token = await KeychainService.retrieveToken();
-    const driveService = new GoogleDriveService(token);
-    syncEngine = new SyncEngine(driveService, store);
-
-    // Start sync
-    syncEngine.start();
-    mainWindow.webContents.send('auth-status', { authenticated: true });
-  } else {
-    mainWindow.webContents.send('auth-status', { authenticated: false });
-  }
 });
 
 app.on('window-all-closed', () => {
