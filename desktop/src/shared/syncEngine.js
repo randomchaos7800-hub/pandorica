@@ -13,8 +13,10 @@ class SyncEngine extends EventEmitter {
     this.syncStatus = 'idle';
     this.syncInterval = null;
     this.saveDebounceTimers = new Map();
-    this.pandoricaFolderId = null;
-    this.folderStructure = {};
+
+    // Load existing data from store
+    this.pandoricaFolderId = this.store.get('pandoricaFolderId', null);
+    this.folderStructure = this.store.get('folderStructure', {});
   }
 
   async start() {

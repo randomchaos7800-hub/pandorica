@@ -13,13 +13,21 @@ async function initializeAuth() {
   // Check if user is authenticated
   const hasToken = await KeychainService.hasToken();
   if (hasToken) {
-    const token = await KeychainService.retrieveToken();
-    const driveService = new GoogleDriveService(JSON.parse(token));
-    syncEngine = new SyncEngine(driveService, store);
+    try {
+      const tokenString = await KeychainService.retrieveToken();
+      const tokens = typeof tokenString === 'string' ? JSON.parse(tokenString) : tokenString;
+      const driveService = new GoogleDriveService(tokens);
+      syncEngine = new SyncEngine(driveService, store);
 
-    // Start sync
-    syncEngine.start();
-    mainWindow.webContents.send('auth-status', { authenticated: true });
+      // Start sync
+      syncEngine.start();
+      mainWindow.webContents.send('auth-status', { authenticated: true });
+    } catch (error) {
+      console.error('Failed to initialize auth:', error);
+      // Clear invalid token
+      await KeychainService.deleteToken();
+      mainWindow.webContents.send('auth-status', { authenticated: false });
+    }
   } else {
     mainWindow.webContents.send('auth-status', { authenticated: false });
   }
@@ -40,9 +48,6 @@ function createWindow() {
   });
 
   mainWindow.loadFile(path.join(__dirname, '../renderer/index.html'));
-
-  // Open DevTools for debugging
-  mainWindow.webContents.openDevTools();
 
   // Wait for page to load before sending auth status
   mainWindow.webContents.on('did-finish-load', async () => {

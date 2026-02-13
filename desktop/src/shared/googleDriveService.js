@@ -2,9 +2,9 @@ const { google } = require('googleapis');
 const http = require('http');
 const url = require('url');
 
-const CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
-const CLIENT_SECRET = 'YOUR_CLIENT_SECRET';
-const REDIRECT_URI = 'http://localhost:3000/oauth2callback';
+const CLIENT_ID = '24339465618-4u4g5ss7iuoeuf84cp9iuftas533m6me.apps.googleusercontent.com';
+const CLIENT_SECRET = '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';
+const REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob';
 const SCOPES = [
   'https://www.googleapis.com/auth/drive.file',
   'https://www.googleapis.com/auth/drive.appdata'
